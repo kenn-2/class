@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calculadora de Notas</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="banner">
+        <img src="img/banner-tecnologia.jpg" alt="Banner de la Calculadora de Notas">
+        <br>
+        <h1>Lenguaje para el desarrollo y soporte de sistemas</h1>
+    </div>
+
+    <div class="exit-button-container">
+        <button class="exit-button" onclick="salir()">Salir</button>
+    </div>
+
+    <div class="container">
+        <h2>Ingrese las notas</h2>
+
+        <label for="nota1">Nota Práctica 1:</label>
+        <input type="number" id="nota1" min="0" max="20" step="1">
+
+        <label for="nota2">Nota Práctica 2:</label>
+        <input type="number" id="nota2" min="0" max="20" step="1">
+
+        <label for="nota3">Nota Práctica 3:</label>
+        <input type="number" id="nota3" min="0" max="20" step="1">
+
+        <div class="promedio">
+            <label>Promedio de Prácticas:</label>
+            <span id="promedioPracticas"></span>
+        </div>
+        <br>
+
+        <div class="nota-examen">
+            <label for="notaExamen">Nota Examen Final:</label>
+            <input type="number" id="notaExamen" min="0" max="20" step="1">
+        </div>
+
+        <div class="promedio">
+            <label>Promedio Final:</label>
+            <span id="promedioFinal"></span>
+        </div>
+
+        <div class="resultado" id="resultado"></div>
+    </div>
+
+    <div class="botones">
+        <button onclick="calcularPromedio()">Calcular Promedio</button>
+        <button onclick="limpiar()">Limpiar</button>
+        <button onclick="imprimir()">Imprimir</button>
+    </div>
+
+    <footer>
+        <p class="autor">Autor: Kenneth Sebastian Casas</p>
+    </footer>
+
+    <script>
+        function calcularPromedio() {
+            var nota1 = parseFloat(document.getElementById('nota1').value);
+            var nota2 = parseFloat(document.getElementById('nota2').value);
+            var nota3 = parseFloat(document.getElementById('nota3').value);
+
+            if (nota1 > 20 || nota2 > 20 || nota3 > 20) {
+                alert("Por favor ingrese notas válidas entre 0 y 20.");
+                return;
+            }
+
+            if (isNaN(nota1) || isNaN(nota2) || isNaN(nota3)) {
+                alert("Por favor ingrese notas válidas.");
+                return;
+            }
+
+            var promedioPracticas = (nota1 + nota2 + nota3) / 3;
+            document.getElementById('promedioPracticas').textContent = promedioPracticas.toFixed(2);
+
+            var notaExamen = parseFloat(document.getElementById('notaExamen').value);
+
+            if (notaExamen > 20) {
+                alert("Por favor ingrese una nota válida para el examen entre 0 y 20.");
+                return;
+            }
+
+            if (isNaN(notaExamen)) {
+                alert("Por favor ingrese una nota válida para el examen.");
+                return;
+            }
+
+            var promedioFinal = (promedioPracticas + notaExamen) / 2;
+            document.getElementById('promedioFinal').textContent = promedioFinal.toFixed(2);
+
+            var resultadoElement = document.getElementById('resultado');
+            if (promedioFinal >= 13) {
+                resultadoElement.textContent = "Aprobado";
+                resultadoElement.className = "resultado aprobado";
+            } else {
+                resultadoElement.textContent = "Desaprobado";
+                resultadoElement.className = "resultado desaprobado";
+            }
+        }
+
+        function limpiar() {
+            document.getElementById('nota1').value = '';
+            document.getElementById('nota2').value = '';
+            document.getElementById('nota3').value = '';
+            document.getElementById('notaExamen').value = '';
+            document.getElementById('promedioPracticas').textContent = '';
+            document.getElementById('promedioFinal').textContent = '';
+            document.getElementById('resultado').textContent = '';
+            document.getElementById('resultado').className = 'resultado';
+        }
+
+        function imprimir() {
+            window.print();
+        }
+
+        function salir() {
+            window.close();
+        }
+    </script>
+</body>
+</html>
